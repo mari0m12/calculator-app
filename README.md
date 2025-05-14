@@ -48,4 +48,7 @@ The Docker image was built and pushed using:
 docker build -t mariam130/calculator-app .
 docker push mariam130/calculator-app
 docker pull mariam130/calculator-app:latest
+## 🌐 GitHub Repository
+
+You can find the full source code for this project on [GitHub](https://github.com/mari0m12/calculator-app).
 
