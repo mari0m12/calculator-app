@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calculator {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        }
+
+        .calculator h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .display {
+            width: 100%;
+            height: 50px;
+            font-size: 24px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #f7f7f7;
+            color: #333;
+            text-align: right;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            font-size: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ff3b3b;
+        }
+
+        .button:active {
+            background-color: #e73535;
+        }
+
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        #history {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 16px;
+            background-color: #ffe4e1;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #history h3 {
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        #history ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculator</h1>
+        <input type="text" id="display" class="display" placeholder="Enter expression" disabled>
+        <div class="buttons">
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button" onclick="appendToDisplay('+')">+</button>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button" onclick="appendToDisplay('-')">-</button>
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button" onclick="appendToDisplay('/')">/</button>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="appendToDisplay('.')">.</button>
+            <button class="button" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendToDisplay('*')">*</button>
+            <button class="button" onclick="clearDisplay()">C</button>
+        </div>
+        <div id="result" class="result"></div>
+        <div id="history"></div>
+    </div>
+
+    <script>
+        let history = [];
+
+        function appendToDisplay(value) {
+            document.getElementById("display").value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById("display").value = '';
+            document.getElementById("result").innerText = '';
+        }
+
+        function calculateResult() {
+            const expression = document.getElementById("display").value;
+            try {
+                const result = eval(expression);
+                document.getElementById("result").innerText = `Result: ${result}`;
+                history.push(`${expression} = ${result}`);
+                updateHistory();
+            } catch (error) {
+                document.getElementById("result").innerText = 'Error: Invalid Expression';
+            }
+        }
+
+        function updateHistory() {
+            const historyDiv = document.getElementById("history");
+            historyDiv.innerHTML = "<h3>Operation History:</h3><ul>" + history.map(item => `<li>${item}</li>`).join('') + "</ul>";
+        }
+    </script>
+</body>
+</html>
