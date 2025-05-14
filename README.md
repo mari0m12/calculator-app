@@ -45,5 +45,7 @@ A `Dockerfile` was created to:
 The Docker image was built and pushed using:
 
 ```bash
-docker build -t mariam1999/calculator-app .
-docker push mariam1999/calculator-app
+docker build -t mariam130/calculator-app .
+docker push mariam130/calculator-app
+docker pull mariam130/calculator-app:latest
+
